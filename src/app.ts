@@ -19,7 +19,10 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
 app.listen(3000, async () => {
     console.log(`Server is ready`)
 
-    const mongoConnections = await mongoose.connect('mongodb://localhost:27017/auth')
+    const mongoConnections = await mongoose.connect('mongodb://localhost:27017/auth', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
     console.log('DB is ready') 
 
     console.log(`Listening on port 3000`)

@@ -1,7 +1,7 @@
 import argon2 from 'argon2'
 import { randomBytes } from 'crypto'
 
-import UserModel from '../models/User'
+import UserModel, { IUser } from '../models/User'
 
 import * as jwt from 'jsonwebtoken'
 import User from '../models/User'
@@ -14,7 +14,7 @@ export default class AuthService {
         if(!userRecord){
             throw new Error('not found')
         } else {
-            const correctAnswer = await argon2.verify(userRecord.password, password)
+            const correctAnswer = await argon2.verify(userRecord.password!, password)
             if(!correctAnswer){
                 throw new Error('Incorrect password')
             }
@@ -29,7 +29,7 @@ export default class AuthService {
         }
     }
 
-    public async LoginAs(email): Promise<any> {
+    public async LoginAs(email: string): Promise<any> {
         const userRecord = await UserModel.findOne({ email })
         console.log('Fetching user from DB...')
 
@@ -46,7 +46,7 @@ export default class AuthService {
         }
     }
 
-    public async SignUp(email, password, name): Promise<any>{
+    public async SignUp(email: string, password: string, name: string): Promise<any>{
         const salt = randomBytes(32)
         const passwordHashed = await argon2.hash(password, { salt })
 
@@ -68,7 +68,7 @@ export default class AuthService {
         }
     }
 
-    private generateJWT(user){
+    private generateJWT(user: IUser){
         
         return jwt.sign({
             data: {

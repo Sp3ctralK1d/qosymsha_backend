@@ -1,7 +1,8 @@
 import mongoose from 'mongoose'
 import { userInfo } from 'os'
 
-interface IUser {
+export interface IUser {
+    _id: string,
     email: string,
     name: string
     password?: string,
