@@ -3,11 +3,12 @@ import routes from './routes'
 import express, { Application, Request, Response, NextFunction } from "express"
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 
 const app: Application = express()
 
 app.use(bodyParser.json())
-
+app.use(cors())
 
 app.use('/api', routes)
 

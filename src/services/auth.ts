@@ -4,7 +4,6 @@ import { randomBytes } from 'crypto'
 import UserModel, { IUser } from '../models/User'
 
 import * as jwt from 'jsonwebtoken'
-import User from '../models/User'
 
 export default class AuthService {
     constructor() {}
